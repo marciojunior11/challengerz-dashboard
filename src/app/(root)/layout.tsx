@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Providers } from "./providers";
+import "../globals.css";
+import { Providers } from "../providers";
 import { Sidebar } from "@/components/sidebar/sidebar";
 import { sidebarConfig } from "@/configs/sidebar";
 
@@ -31,12 +31,18 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <div className="flex">
-            <Sidebar.Container>
-              <Sidebar.Items items={sidebarConfig.items}/>
-            </Sidebar.Container>
-            {children}
-          </div>
+            <div className="flex flex-1 h-screen p-4">
+              <Sidebar.Container>
+                <Sidebar.Header className="px-8 py-6">
+                  <p className="text-xl font-bold text-primary-500">CHALLENGERZ</p>
+                </Sidebar.Header>
+                <Sidebar.Items items={sidebarConfig.items} />
+              </Sidebar.Container>
+
+              <main className="flex-1 overflow-y-auto">
+                {children}
+              </main>
+            </div>
         </Providers>
       </body>
     </html>

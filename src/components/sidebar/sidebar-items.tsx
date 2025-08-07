@@ -6,11 +6,11 @@ interface ISidebarItemsProps {
 
 export default function SidebarItems({ items }: ISidebarItemsProps) {
     return (
-        <ul>
+        <ul className="flex flex-col w-full h-full">
             {items.map(item => {
                 return (
                     <li key={item.key}>
-                        <SidebarItem label={item.label} href={item.href}/>
+                        <SidebarItem icon={item.icon} label={item.label} href={item.href}/>
                     </li>
                 )
             })}
