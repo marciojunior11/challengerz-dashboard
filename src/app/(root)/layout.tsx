@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-            <div className="flex flex-1 h-screen p-4">
+            <div className="flex flex-1 h-screen px-4 py-2">
               <Sidebar.Container>
                 <Sidebar.Header className="px-8 py-6">
                   <p className="text-xl font-bold text-primary-500">CHALLENGERZ</p>

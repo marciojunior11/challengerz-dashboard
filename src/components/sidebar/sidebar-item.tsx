@@ -23,8 +23,11 @@ export default function SidebarItem({ icon, label, href }: ISidebarItemProps) {
 
             <Link href={href} className={`
                 w-full mx-4 py-2 flex items-center gap-4 text-xl rounded-small
+                ${pathname == href ? "text-content-1 font-bold" : "text-content-4"}
             `}>
-                <Icon icon={icon ?? ""}/>
+                <Icon className={`
+                    ${pathname == href ? "text-primary" : "text-content-4"}
+                `} icon={icon ?? ""}/>
                 {label}
             </Link>
         </div>
