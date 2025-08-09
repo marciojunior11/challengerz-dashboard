@@ -8,7 +8,7 @@ interface ISidebarContainerProps extends HTMLAttributes<HTMLDivElement> {
 export default function SidebarContainer({ children, className }: ISidebarContainerProps) {
     return (
         <nav className={twMerge(
-            "flex flex-col min-w-40 justify-between items-center rounded-xl overflow-hidden px-4",
+            "flex flex-col min-w-40 justify-between items-center rounded-xl overflow-hidden",
             className
         )}>
             {children}

@@ -4,7 +4,7 @@ import { Avatar, Divider, Input } from "@heroui/react";
 
 export default function EsportesPage() {
     return (
-        <div className="flex flex-col flex-1 bg-paper rounded-xl">
+        <div className="flex flex-col flex-1 bg-paper rounded-xl mr-4">
             <div className="flex justify-between items-center py-5 px-5 gap-4">
                 {/* Lado esquerdo - Busca */}
                 <div className="flex items-center gap-4 w-1/3">
