@@ -8,4 +8,4 @@ export const Sidebar = {
     Header: SidebarHeader,
     Items: SidebarItems,
     Item: SidebarItem
-}
+};

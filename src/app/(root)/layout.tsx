@@ -4,6 +4,8 @@ import "../globals.css";
 import { Providers } from "../providers";
 import { Sidebar } from "@/components/sidebar/sidebar";
 import { sidebarConfig } from "@/configs/sidebar";
+import Image from "next/image";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,15 +33,18 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-            <div className="flex flex-1 h-screen px-4 py-2">
+            <div className="flex flex-1 h-screen py-2">
               <Sidebar.Container>
-                <Sidebar.Header className="px-8 py-6">
-                  <p className="text-xl font-bold text-primary-500">CHALLENGERZ</p>
+                <Sidebar.Header className="p-8">
+                  <Link href="/">
+                    <Image src="/logo_horizontal.svg" alt="logo horizontal" width={200} height={200}/>
+                  </Link>
+                  {/* <p className="text-xl font-bold text-primary-500">CHALLENGERZ</p> */}
                 </Sidebar.Header>
                 <Sidebar.Items items={sidebarConfig.items} />
               </Sidebar.Container>
 
-              <main className="flex-1 overflow-y-auto">
+              <main className="flex flex-col flex-1 overflow-y-auto">
                 {children}
               </main>
             </div>
