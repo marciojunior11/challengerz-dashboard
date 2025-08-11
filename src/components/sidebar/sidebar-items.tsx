@@ -26,14 +26,11 @@ export default function SidebarItems({ items, className }: ISidebarItemsProps) {
   }, [pathname, items]);
 
   return (
-    <ul
-      ref={containerRef}
-      className={twMerge("relative flex flex-col gap-2 w-full h-full py-1", className)}
-    >
+    <div className="relative flex w-full h-full">
       {/* Indicador animado */}
       <span
         style={{
-          top: activeIndex * (ITEM_HEIGHT + 4),
+          top: activeIndex * ITEM_HEIGHT,
           height: ITEM_HEIGHT,
         }}
         className="
@@ -41,12 +38,17 @@ export default function SidebarItems({ items, className }: ISidebarItemsProps) {
           transition-top duration-300 ease-in-out
         "
       />
-      {/* Itens */}
-      {items.map(item => (
-        <li key={item.key ?? item.href}>
-          <SidebarItem icon={item.icon} label={item.label} href={item.href} />
-        </li>
-      ))}
-    </ul>
+      <ul
+        ref={containerRef}
+        className={twMerge("flex flex-col w-full h-full mx-8", className)}
+      >
+        {/* Itens */}
+        {items.map(item => (
+          <li key={item.key ?? item.href}>
+            <SidebarItem icon={item.icon} label={item.label} href={item.href} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Icon } from "@iconify/react"
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 
 export interface ISidebarItemProps {
     key?: string,
@@ -14,33 +13,30 @@ export interface ISidebarItemProps {
 
 export default function SidebarItem({ icon, label, href }: ISidebarItemProps) {
     const pathname = usePathname();
-    const ref = useRef<HTMLDivElement>(null);
 
     return (
-        <div ref={ref} className="relative flex items-center">
-            <Link
-                href={href}
-                className={`
-                    group w-full mx-4 py-2 flex items-center gap-4 text-xl rounded-small
-                    transition-colors duration-500
-                    ${pathname === href 
-                        ? "text-content-1 font-bold" 
-                        : "text-content-3 hover:text-blue-400"
-                    }
+        <Link
+            href={href}
+            className={`
+                    group w-full h-12 flex items-center gap-4 text-xl rounded-small
+                    transition duration-500
+                    ${pathname === href
+                    ? "text-content-1 font-bold translate-x-2"
+                    : "text-content-3 hover:text-primary"
+                }
                 `}
-            >
-                <Icon
-                    className={`
+        >
+            <Icon
+                className={`
                         transition-colors duration-500
                         ${pathname === href
-                            ? "text-primary"
-                            : "text-content-3 group-hover:text-blue-400"
-                        }
+                        ? "text-primary"
+                        : "text-content-3 group-hover:text-primary"
+                    }
                     `}
-                    icon={icon ?? ""}
-                />
-                {label}
-            </Link>
-        </div>
+                icon={icon ?? ""}
+            />
+            {label}
+        </Link>
     );
 }
