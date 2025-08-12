@@ -5,7 +5,7 @@ export interface IColumn<T> {
     name: string;
     label?: string;
     align: "start" | "center" | "end";
-    render: (item: T) => React.ReactNode;
+    render?: (item: T) => React.ReactNode | null | undefined;
 }
 
 interface IDataTableProps<T> {
@@ -17,8 +17,9 @@ export default function DataTable<T extends { id?: string | number }>({
     columns,
     rows,
 }: IDataTableProps<T>) {
+
     return (
-        <Table>
+        <Table removeWrapper>
             <TableHeader columns={columns}>
                 {(column) => (
                     <TableColumn key={column.key} align={column.align}>
@@ -27,12 +28,16 @@ export default function DataTable<T extends { id?: string | number }>({
                 )}
             </TableHeader>
 
-            <TableBody items={rows}>
+            <TableBody items={rows} emptyContent="Nenhum registro para ser mostrado.">
                 {(item) => (
                     <TableRow key={item.id ?? JSON.stringify(item)}>
                         {columns.map((column) => (
                             <TableCell key={column.key}>
-                                {column.render(item)}
+                                {
+                                    !!column.render ? 
+                                        column.render(item) :
+                                        <span>{`${item[column.name as keyof T]}`}</span>                                        
+                                }
                             </TableCell>
                         ))}
                     </TableRow>

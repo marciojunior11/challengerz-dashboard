@@ -1,30 +1,24 @@
 "use client"
 
 import DataTable, { IColumn } from "@/components/data-table";
-import { Avatar, Divider, Input } from "@heroui/react";
+import { Button, Divider, Input } from "@heroui/react";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { useRouter } from "next/navigation";
 
 export default function EsportesPage() {
-    const columns: IColumn<{id: number, nome: string}> [] =[
+    const router = useRouter();
+
+    const columns: IColumn<{ id: number, nome: string }>[] = [
         {
             key: "id",
             name: "id",
-            align: "center",
-            render: (item) => {
-                return (
-                    item.id
-                )
-            }
+            align: "end"
         },
 
         {
             key: "nome",
             name: "nome",
-            align: "center",
-            render: (item) => {
-                return (
-                    item.nome
-                )
-            }
+            align: "start"
         },
     ];
 
@@ -46,14 +40,15 @@ export default function EsportesPage() {
                 {/* Lado direito - Perfil */}
                 <div className="flex items-center gap-4">
                     <Divider orientation="vertical" className="h-12" />
-                    <Avatar
-                        isBordered
-                        radius="full"
-                        src="https://i.pravatar.cc/150?u=a04258114e29026708c"
-                    />
-                    <p className="font-bold text-content-1 whitespace-nowrap">
-                        Fulano de Tal
-                    </p>
+
+                    <Button 
+                        variant="flat" 
+                        color="primary" 
+                        startContent={<Icon fontSize={24} icon="basil:add-solid" />}
+                        onPress={() => router.push("/esportes/create")}
+                    >
+                        Cadastrar
+                    </Button>
                 </div>
             </div>
 

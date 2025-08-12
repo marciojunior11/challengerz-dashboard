@@ -33,21 +33,20 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-            <div className="flex flex-1 h-screen py-2">
-              <Sidebar.Container>
-                <Sidebar.Header className="p-8">
-                  <Link href="/">
-                    <Image src="/logo_horizontal.svg" alt="logo horizontal" width={200} height={200}/>
-                  </Link>
-                  {/* <p className="text-xl font-bold text-primary-500">CHALLENGERZ</p> */}
-                </Sidebar.Header>
-                <Sidebar.Items items={sidebarConfig.items} />
-              </Sidebar.Container>
+          <div className="flex flex-1 h-screen py-2">
+            <Sidebar.Container>
+              <Sidebar.Header className="p-8">
+                <Link href="/">
+                  <Image src="/logo_horizontal.svg" alt="logo horizontal" width={200} height={200} />
+                </Link>
+              </Sidebar.Header>
+              <Sidebar.Items items={sidebarConfig.items} />
+            </Sidebar.Container>
 
-              <main className="flex flex-col flex-1 overflow-y-auto">
-                {children}
-              </main>
-            </div>
+            <main className="flex flex-col flex-1 overflow-y-auto">
+              {children}
+            </main>
+          </div>
         </Providers>
       </body>
     </html>
