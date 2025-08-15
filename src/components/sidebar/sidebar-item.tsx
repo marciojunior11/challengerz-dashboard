@@ -21,19 +21,19 @@ export default function SidebarItem({ icon, label, href }: ISidebarItemProps) {
                     group w-full h-12 flex items-center gap-4 text-xl rounded-small
                     transition duration-500
                     ${pathname === href
-                    ? "text-content-1 font-bold translate-x-2"
-                    : "text-content-3 hover:text-primary"
-                }
-                `}
+                        ? "text-content4 font-bold translate-x-2"
+                        : "text-content3 hover:text-primary-400"
+                    }
+            `}
         >
             <Icon
                 className={`
                         transition-colors duration-500
                         ${pathname === href
-                        ? "text-primary"
-                        : "text-content-3 group-hover:text-primary"
-                    }
-                    `}
+                            ? "text-primary"
+                            : "text-content3 group-hover:text-primary-400"
+                        }
+                `}
                 icon={icon ?? ""}
             />
             {label}

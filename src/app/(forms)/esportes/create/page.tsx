@@ -11,7 +11,7 @@ export default function CreateEsportPage() {
 
     return (
         <div className="flex flex-1 h-screen justify-center">
-            <div className="w-1/2 bg-paper m-4 rounded-xl flex flex-col">
+            <div className="w-1/2 bg-paper m-4 rounded-xl flex flex-col bg-white dark:bg-[#12141A]">
                 <div className="flex items-center justify-between p-5">
                     <div className="flex items-center">
                         <Link className="flex justify-center items-center text-foreground text-small" href="/esportes">

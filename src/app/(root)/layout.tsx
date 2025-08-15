@@ -6,6 +6,7 @@ import { Sidebar } from "@/components/sidebar/sidebar";
 import { sidebarConfig } from "@/configs/sidebar";
 import Image from "next/image";
 import Link from "next/link";
+import ThemeSwitcher from "@/components/theme-switcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="dark">
+    <html suppressHydrationWarning lang="pt-BR">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -41,6 +42,9 @@ export default function RootLayout({
                 </Link>
               </Sidebar.Header>
               <Sidebar.Items items={sidebarConfig.items} />
+              <Sidebar.Footer>
+                <ThemeSwitcher/>
+              </Sidebar.Footer>
             </Sidebar.Container>
 
             <main className="flex flex-col flex-1 overflow-y-auto">

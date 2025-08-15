@@ -30,11 +30,11 @@ export default function EsportesPage() {
     ]
 
     return (
-        <div className="flex flex-col flex-1 bg-paper rounded-xl mr-4">
+        <div className="flex flex-col flex-1 bg-white dark:bg-[#12141A] rounded-xl mr-4">
             <div className="flex justify-between items-center p-5 gap-4">
                 {/* Lado esquerdo - Busca */}
                 <div className="flex items-center gap-4 w-1/3">
-                    <Input fullWidth label="Buscar esporte" />
+                    <Input label="Buscar esporte" />
                 </div>
 
                 {/* Lado direito - Perfil */}
