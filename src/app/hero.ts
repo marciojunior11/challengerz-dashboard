@@ -56,7 +56,7 @@ export default heroui({
                     700: "#374151",
                     800: "#1F2937",
                     900: "#111827",
-                    foreground: "#FFFFFF",
+                    foreground: "#141414",
                     DEFAULT: "#6B7280"
                 },
                 success: {

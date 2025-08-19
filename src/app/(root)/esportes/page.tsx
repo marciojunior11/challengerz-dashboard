@@ -20,6 +20,25 @@ export default function EsportesPage() {
             name: "nome",
             align: "start"
         },
+        {
+            key: "actions",
+            name: "actions",
+            label: " ",
+            align: "center",
+            render: (item) => {
+                return (
+                    <div className="flex justify-end gap-2">
+                        <Button isIconOnly color="primary" variant="flat">
+                            <Icon fontSize={40} icon="lets-icons:edit-duotone" />
+                        </Button>
+
+                        <Button isIconOnly color="danger" variant="flat">
+                            <Icon fontSize={40} icon="lets-icons:trash-duotone" />
+                        </Button>
+                    </div>
+                );
+            }
+        }
     ];
 
     const rows = [
@@ -30,34 +49,39 @@ export default function EsportesPage() {
     ]
 
     return (
-        <div className="flex flex-col flex-1 bg-white dark:bg-[#12141A] rounded-xl mr-4">
-            <div className="flex justify-between items-center p-5 gap-4">
-                {/* Lado esquerdo - Busca */}
-                <div className="flex items-center gap-4 w-1/3">
-                    <Input label="Buscar esporte" />
+        <div className="flex flex-col flex-1 gap-5 py-8">
+            <h1 className="font-bold text-4xl">Lista de esportes</h1>
+
+            <section className="flex flex-col bg-white dark:bg-[#12141A] rounded-xl mr-4">
+                <div className="flex justify-between items-center p-5 gap-4">
+                    {/* Lado esquerdo - Busca */}
+                    <div className="flex items-center gap-4 w-1/3">
+                        <Input label="Buscar esporte" />
+                    </div>
+
+                    {/* Lado direito - Perfil */}
+                    <div className="flex items-center gap-4">
+                        <Divider orientation="vertical" className="h-12" />
+
+                        <Button
+                            size="lg"
+                            variant="flat"
+                            color="primary"
+                            startContent={<Icon fontSize={40} icon="lets-icons:add-square-duotone" />}
+                            onPress={() => router.push("/esportes/create")}
+                        >
+                            Cadastrar
+                        </Button>
+                    </div>
                 </div>
 
-                {/* Lado direito - Perfil */}
-                <div className="flex items-center gap-4">
-                    <Divider orientation="vertical" className="h-12" />
+                <Divider orientation="horizontal" />
 
-                    <Button 
-                        variant="flat" 
-                        color="primary" 
-                        startContent={<Icon fontSize={24} icon="basil:add-solid" />}
-                        onPress={() => router.push("/esportes/create")}
-                    >
-                        Cadastrar
-                    </Button>
+                <div className="p-5">
+                    <DataTable columns={columns} rows={rows} />
                 </div>
-            </div>
 
-            <Divider orientation="horizontal" />
-
-            <div className="p-5">
-                <DataTable columns={columns} rows={rows} />
-            </div>
-
+            </section>
         </div>
     )
 }

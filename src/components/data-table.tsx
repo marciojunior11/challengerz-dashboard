@@ -1,3 +1,4 @@
+import { getNestedValue } from "@/helpers/utility-helper";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@heroui/react";
 
 export interface IColumn<T> {
@@ -36,7 +37,7 @@ export default function DataTable<T extends { id?: string | number }>({
                                 {
                                     !!column.render ? 
                                         column.render(item) :
-                                        <span>{`${item[column.name as keyof T]}`}</span>                                        
+                                        <span>{`${getNestedValue(item, column.name)}`}</span>                                        
                                 }
                             </TableCell>
                         ))}

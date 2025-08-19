@@ -34,7 +34,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <div className="flex flex-1 h-screen py-2">
+          <div className="flex flex-1 h-screen">
             <Sidebar.Container>
               <Sidebar.Header className="p-8">
                 <Link href="/">
@@ -42,7 +42,7 @@ export default function RootLayout({
                 </Link>
               </Sidebar.Header>
               <Sidebar.Items items={sidebarConfig.items} />
-              <Sidebar.Footer>
+              <Sidebar.Footer className="p-8">
                 <ThemeSwitcher/>
               </Sidebar.Footer>
             </Sidebar.Container>

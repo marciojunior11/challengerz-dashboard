@@ -1,12 +1,12 @@
 "use client"
 
 import { handleReset, handleSubmit } from "@/handlers/form-handlers";
-import { BreadcrumbItem, Breadcrumbs, Button, Divider } from "@heroui/react";
+import { BreadcrumbItem, Breadcrumbs, Button, Divider, Input } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 import { useRef } from "react";
 
-export default function CreateEsportPage() {
+export default function CreateEsportePage() {
     const formRef = useRef<HTMLFormElement>(null);
 
     return (
@@ -34,6 +34,10 @@ export default function CreateEsportPage() {
                 </div>
 
                 <Divider orientation="horizontal" />
+
+                <div className="grid grid-rows-12 mx-5 mt-5">
+                    <Input label="Nome"/>
+                </div>
             </div>
         </div>
     );
