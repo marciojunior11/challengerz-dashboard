@@ -5,40 +5,28 @@ import { Button, Divider, Input } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useRouter } from "next/navigation";
 
-export default function CompeticoesPage() {
+export default function PeriodosEsportePage() {
     const router = useRouter();
 
     const columns: IColumn<{ id: number, nome: string }>[] = [
         {
             key: "id",
             name: "id",
-            label: "ID",
             align: "end"
         },
+
         {
             key: "nome",
             name: "nome",
-            label: "NOME",
             align: "start"
         },
+
         {
-            key: "esporte",
+            key: "esporte.nome",
             name: "esporte.nome",
-            label: "ESPORTE",
             align: "center"
         },
-        {
-            key: "tipoParticipante",
-            name: "tipoParticipante",
-            label: "TIPO DE PARTICIPANTE",
-            align: "center"
-        },
-        {
-            key: "quantidadeParticipantes",
-            name: "quantidadeParticipantes",
-            label: "QUANT. PARTICIPANTES",
-            align: "center"
-        },
+
         {
             key: "actions",
             name: "actions",
@@ -48,30 +36,21 @@ export default function CompeticoesPage() {
                 return (
                     <div className="flex justify-end gap-2">
                         <Button
-                            isIconOnly 
-                            color="primary" 
+                            isIconOnly
+                            color="primary"
                             variant="flat"
-                            onPress={() => router.push(`/competicoes/edit/${item.id}`)}
+                            onPress={() => router.push(`/periodos-esporte/edit/${item.id}`)}
                         >
                             <Icon className="m-1" fontSize={40} icon="lets-icons:edit-duotone" />
                         </Button>
 
-                        <Button 
-                            isIconOnly 
-                            color="danger" 
+                        <Button
+                            isIconOnly
+                            color="danger"
                             variant="flat"
-                            onPress={() => router.push(`/competicoes/delete/${item.id}`)}
+                            onPress={() => router.push(`/periodos-esporte/delete/${item.id}`)}
                         >
                             <Icon className="m-1" fontSize={40} icon="lets-icons:trash-duotone" />
-                        </Button>
-
-                        <Button 
-                            isIconOnly 
-                            color="default" 
-                            variant="flat"
-                            onPress={() => router.push(`/competicoes/settings/${item.id}`)}
-                        >
-                            <Icon className="m-1" fontSize={40} icon="lets-icons:setting-line-duotone" />
                         </Button>
                     </div>
                 );
@@ -82,25 +61,50 @@ export default function CompeticoesPage() {
     const rows = [
         {
             id: 1,
-            nome: "CIRCUITO CATARATAS DE VÔLEI DE PRAIA",
+            nome: "SET NORMAL",
             esporte: {
                 id: 1,
                 nome: "VÔLEI DE PRAIA"
             },
-            tipoParticipante: "EQUIPE",
-            quantidadeParticipantes: 16
-        }
+        },
+
+        {
+            id: 2,
+            nome: "TIE-BREAK",
+            esporte: {
+                id: 1,
+                nome: "VÔLEI DE PRAIA"
+            },
+        },
+
+        {
+            id: 3,
+            nome: "TEMPO REGULAR",
+            esporte: {
+                id: 2,
+                nome: "FUTEBOL"
+            },
+        },
+
+        {
+            id: 4,
+            nome: "PRORROGAÇÃO",
+            esporte: {
+                id: 2,
+                nome: "FUTEBOL"
+            },
+        },
     ]
 
     return (
         <div className="flex flex-col flex-1 gap-5 py-8">
-            <h1 className="font-bold text-4xl text-content4">Lista de competições</h1>
+            <h1 className="font-bold text-4xl">Lista de períodos de esporte</h1>
 
             <section className="flex flex-col bg-white dark:bg-[#12141A] rounded-xl mr-4">
                 <div className="flex justify-between items-center p-5 gap-4">
                     {/* Lado esquerdo - Busca */}
                     <div className="flex items-center gap-4 w-1/3">
-                        <Input label="Buscar competição" />
+                        <Input label="Buscar período de esporte" />
                     </div>
 
                     {/* Lado direito - Perfil */}
@@ -112,7 +116,7 @@ export default function CompeticoesPage() {
                             variant="flat"
                             color="primary"
                             startContent={<Icon fontSize={40} icon="lets-icons:add-square-duotone" />}
-                            onPress={() => router.push("/competicoes/create")}
+                            onPress={() => router.push("/periodos-esporte/create")}
                         >
                             Cadastrar
                         </Button>
@@ -124,6 +128,7 @@ export default function CompeticoesPage() {
                 <div className="p-5">
                     <DataTable columns={columns} rows={rows} />
                 </div>
+
             </section>
         </div>
     )

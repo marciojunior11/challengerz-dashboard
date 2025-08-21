@@ -15,12 +15,19 @@ export const sidebarConfig = {
             label: "Esportes",
             href: "/esportes",
         },
-        
+
         {
             key: "sbi_2",
+            icon: "ph:timer-duotone",
+            label: "Períodos de esporte",
+            href: "/periodos-esporte",
+        },
+
+        {
+            key: "sbi_3",
             icon: "tabler:tournament",
             label: "Competições",
             href: "/competicoes",
-        },        
+        },
     ]
 }

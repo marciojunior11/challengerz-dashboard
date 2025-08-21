@@ -28,12 +28,22 @@ export default function EsportesPage() {
             render: (item) => {
                 return (
                     <div className="flex justify-end gap-2">
-                        <Button isIconOnly color="primary" variant="flat">
-                            <Icon fontSize={40} icon="lets-icons:edit-duotone" />
+                        <Button
+                            isIconOnly
+                            color="primary"
+                            variant="flat"
+                            onPress={() => router.push(`/esportes/edit/${item.id}`)}
+                        >
+                            <Icon className="m-1" fontSize={40} icon="lets-icons:edit-duotone" />
                         </Button>
 
-                        <Button isIconOnly color="danger" variant="flat">
-                            <Icon fontSize={40} icon="lets-icons:trash-duotone" />
+                        <Button
+                            isIconOnly
+                            color="danger"
+                            variant="flat"
+                            onPress={() => router.push(`/esportes/delete/${item.id}`)}
+                        >
+                            <Icon className="m-1" fontSize={40} icon="lets-icons:trash-duotone" />
                         </Button>
                     </div>
                 );
