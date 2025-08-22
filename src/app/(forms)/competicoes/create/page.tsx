@@ -1,7 +1,7 @@
 "use client"
 
 import { handleReset, handleSubmit } from "@/handlers/form-handlers";
-import { Autocomplete, AutocompleteItem, BreadcrumbItem, Breadcrumbs, Button, cn, Divider, Input, Radio, RadioGroup, RadioProps, Textarea } from "@heroui/react";
+import { Autocomplete, AutocompleteItem, BreadcrumbItem, Breadcrumbs, Button, cn, DateInput, DateRangePicker, Divider, Input, Progress, Radio, RadioGroup, RadioProps, Textarea } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 import { useRef } from "react";
@@ -15,7 +15,7 @@ const CustomRadio = (props: RadioProps) => {
             classNames={{
                 label: cn("font-bold text-content-4 group-data-[selected=true]:text-primary"),
                 description: cn("text-content3 group-data-[selected=true]:text-primary-400"),
-                base: cn(                    
+                base: cn(
                     "col-span-6 inline-flex m-0 bg-default-100 transition hover:bg-default-200 items-center justify-between",
                     "flex-row-reverse max-w-full w-full cursor-pointer rounded-medium gap-4 p-4",
                     "data-[selected=true]:bg-primary-200",
@@ -38,25 +38,91 @@ export default function CreateCompeticaoPage() {
     return (
         <div className="flex flex-1 h-screen justify-center">
             <div className="w-1/2 bg-paper m-4 rounded-xl flex flex-col bg-white dark:bg-[#12141A]">
-                <div className="flex items-center justify-between p-5">
-                    <div className="flex items-center">
-                        <Link className="flex justify-center items-center text-foreground text-small" href="/competicoes">
-                            <Icon fontSize={24} icon="ion:chevron-back" />
-                            Voltar
-                        </Link>
+                <div>
+                    <div className="flex items-center justify-between p-5">
+                        <div className="flex items-center">
+                            <Link className="flex justify-center items-center text-foreground text-small" href="/competicoes">
+                                <Icon fontSize={24} icon="ion:chevron-back" />
+                                Voltar
+                            </Link>
 
-                        <Divider className="mx-4 h-10" orientation="vertical" />
+                            <Divider className="mx-4 h-10" orientation="vertical" />
 
-                        <Breadcrumbs size="md">
-                            <BreadcrumbItem href="/competicoes">Lista de competições</BreadcrumbItem>
-                            <BreadcrumbItem>Cadastrar competição</BreadcrumbItem>
-                        </Breadcrumbs>
+                            <Breadcrumbs size="md">
+                                <BreadcrumbItem href="/competicoes">Lista de competições</BreadcrumbItem>
+                                <BreadcrumbItem>Cadastrar competição</BreadcrumbItem>
+                            </Breadcrumbs>
+                        </div>
+
+                        <div className="flex gap-4">
+                            <Button onPress={() => handleReset(formRef)} type="reset" color="danger" variant="light">Limpar</Button>
+                            <Button onPress={() => handleSubmit(formRef)} color="primary" variant="solid">Salvar</Button>
+                        </div>
                     </div>
 
-                    <div className="flex gap-4">
-                        <Button onPress={() => handleReset(formRef)} type="reset" color="danger" variant="light">Limpar</Button>
-                        <Button onPress={() => handleSubmit(formRef)} color="primary" variant="solid">Salvar</Button>
-                    </div>
+                    <Divider orientation="horizontal" />
+
+                    <ul className="flex items-center justify-between w-full col-span-12 gap-8 p-5">
+                        {/* <li className="flex flex-col flex-1 gap-4">
+                            <div className="flex gap-2 items-center">
+                                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-black text-white font-semibold">
+                                    ✓
+                                </div>
+                                <span className="mt-2 text-sm font-medium text-black">DETALHES</span>
+                            </div>
+                            <Progress />
+                        </li> */}
+
+                        <li className="flex flex-col flex-1 gap-4">
+                            <div className="flex gap-4 items-center">
+                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-primary text-primary font-bold">
+                                    01
+                                </div>
+                                <span className="text-sm font-bold text-primary">DETALHES</span>
+                            </div>
+                            <Progress radius="none" size="sm" />
+                        </li>
+
+                        {/* <li className="flex flex-col flex-1 gap-4">
+                            <div className="flex gap-2 items-center">
+                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-black text-black font-semibold">
+                                    02
+                                </div>
+                                <span className="mt-2 text-sm font-medium text-black">FASES</span>
+                            </div>
+                            <Progress />
+                        </li> */}
+
+                        <li className="flex flex-col flex-1 gap-4">
+                            <div className="flex gap-4 items-center">
+                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-300 text-gray-400 font-semibold">
+                                    02
+                                </div>
+                                <span className="text-sm font-medium text-gray-400">FASES</span>
+                            </div>
+                            <Progress radius="none" size="sm" />
+                        </li>
+
+                        <li className="flex flex-col flex-1 gap-4">
+                            <div className="flex gap-4 items-center">
+                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-300 text-gray-400 font-semibold">
+                                    03
+                                </div>
+                                <span className="text-sm font-medium text-gray-400">COMPETIDORES</span>
+                            </div>
+                            <Progress radius="none" size="sm" />
+                        </li>
+
+                        <li className="flex flex-col flex-1 gap-4">
+                            <div className="flex gap-4 items-center">
+                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-300 text-gray-400 font-semibold">
+                                    04
+                                </div>
+                                <span className="text-sm font-medium text-gray-400">LANÇAMENTO</span>
+                            </div>
+                            <Progress radius="none" size="sm" />
+                        </li>
+                    </ul>
                 </div>
 
                 <Divider orientation="horizontal" />
@@ -64,8 +130,10 @@ export default function CreateCompeticaoPage() {
                 <div className="grid grid-cols-12 mx-5 mt-5 gap-y-2 gap-x-2">
                     <Input className="col-span-12" label="Nome" />
 
+                    <DateRangePicker className="col-span-6" label="Duração" />
+
                     <Autocomplete
-                        className="col-span-12"
+                        className="col-span-6"
                         label="Esporte"
                         defaultItems={esportes}
                     >
@@ -76,7 +144,7 @@ export default function CreateCompeticaoPage() {
 
                     <Textarea className="col-span-6" label="Observações" />
 
-                    <RadioGroup classNames={{wrapper: "grid grid-cols-12"}} className="col-span-12 mt-3" label="Selecione o tipo de competidor" orientation="horizontal">
+                    <RadioGroup classNames={{ wrapper: "grid grid-cols-12" }} className="col-span-12 mt-3" label="Selecione o tipo de competidor" orientation="horizontal">
                         <CustomRadio value="equipes" description="Fixar número de participantes">Equipes</CustomRadio>
                         <CustomRadio value="competidores" description="Fixar número de equipes">Competidores</CustomRadio>
                     </RadioGroup>
