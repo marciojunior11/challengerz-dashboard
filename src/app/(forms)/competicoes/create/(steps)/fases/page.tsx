@@ -1,5 +1,6 @@
 "use client"
 
+import { Stepper } from "@/components/stepper/stepper";
 import { handleReset, handleSubmit } from "@/handlers/form-handlers";
 import { Autocomplete, AutocompleteItem, BreadcrumbItem, Breadcrumbs, Button, cn, DateInput, DateRangePicker, Divider, Input, Progress, Radio, RadioGroup, RadioProps, Textarea } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -27,7 +28,7 @@ const CustomRadio = (props: RadioProps) => {
     );
 };
 
-export default function CreateCompeticaoPage() {
+export default function CreateCompeticaoFasesStepPage() {
     const formRef = useRef<HTMLFormElement>(null);
 
     const esportes = [
@@ -60,69 +61,13 @@ export default function CreateCompeticaoPage() {
                         </div>
                     </div>
 
-                    <Divider orientation="horizontal" />
+                    <Stepper.Container activeStep={2}>
+                        <Stepper.Item label="DETALHES" />
+                        <Stepper.Item label="FASES" />
+                        <Stepper.Item label="COMPETIDORES" />
+                        <Stepper.Item label="LANÇAMENTO" />
+                    </Stepper.Container>
 
-                    <ul className="flex items-center justify-between w-full col-span-12 gap-8 p-5">
-                        {/* <li className="flex flex-col flex-1 gap-4">
-                            <div className="flex gap-2 items-center">
-                                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-black text-white font-semibold">
-                                    ✓
-                                </div>
-                                <span className="mt-2 text-sm font-medium text-black">DETALHES</span>
-                            </div>
-                            <Progress />
-                        </li> */}
-
-                        <li className="flex flex-col flex-1 gap-4">
-                            <div className="flex gap-4 items-center">
-                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-primary text-primary font-bold">
-                                    01
-                                </div>
-                                <span className="text-sm font-bold text-primary">DETALHES</span>
-                            </div>
-                            <Progress radius="none" size="sm" />
-                        </li>
-
-                        {/* <li className="flex flex-col flex-1 gap-4">
-                            <div className="flex gap-2 items-center">
-                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-black text-black font-semibold">
-                                    02
-                                </div>
-                                <span className="mt-2 text-sm font-medium text-black">FASES</span>
-                            </div>
-                            <Progress />
-                        </li> */}
-
-                        <li className="flex flex-col flex-1 gap-4">
-                            <div className="flex gap-4 items-center">
-                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-300 text-gray-400 font-semibold">
-                                    02
-                                </div>
-                                <span className="text-sm font-medium text-gray-400">FASES</span>
-                            </div>
-                            <Progress radius="none" size="sm" />
-                        </li>
-
-                        <li className="flex flex-col flex-1 gap-4">
-                            <div className="flex gap-4 items-center">
-                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-300 text-gray-400 font-semibold">
-                                    03
-                                </div>
-                                <span className="text-sm font-medium text-gray-400">COMPETIDORES</span>
-                            </div>
-                            <Progress radius="none" size="sm" />
-                        </li>
-
-                        <li className="flex flex-col flex-1 gap-4">
-                            <div className="flex gap-4 items-center">
-                                <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-gray-300 text-gray-400 font-semibold">
-                                    04
-                                </div>
-                                <span className="text-sm font-medium text-gray-400">LANÇAMENTO</span>
-                            </div>
-                            <Progress radius="none" size="sm" />
-                        </li>
-                    </ul>
                 </div>
 
                 <Divider orientation="horizontal" />

@@ -112,7 +112,7 @@ export default function CompeticoesPage() {
                             variant="flat"
                             color="primary"
                             startContent={<Icon fontSize={40} icon="lets-icons:add-square-duotone" />}
-                            onPress={() => router.push("/competicoes/create")}
+                            onPress={() => router.push("/competicoes/create/detalhes")}
                         >
                             Cadastrar
                         </Button>
