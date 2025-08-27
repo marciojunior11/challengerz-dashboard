@@ -2,7 +2,7 @@
 
 import { Stepper } from "@/components/stepper/stepper";
 import { handleReset, handleSubmit } from "@/handlers/form-handlers";
-import { Autocomplete, AutocompleteItem, BreadcrumbItem, Breadcrumbs, Button, cn, DateInput, DateRangePicker, Divider, Input, Progress, Radio, RadioGroup, RadioProps, Textarea } from "@heroui/react";
+import { Autocomplete, AutocompleteItem, BreadcrumbItem, Breadcrumbs, Button, cn, DateInput, DateRangePicker, Divider, Form, Input, Progress, Radio, RadioGroup, RadioProps, Textarea } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 import { useRef } from "react";
@@ -37,66 +37,35 @@ export default function CreateCompeticaoFasesStepPage() {
     ];
 
     return (
-        <div className="flex flex-1 h-screen justify-center">
-            <div className="w-1/2 bg-paper m-4 rounded-xl flex flex-col bg-white dark:bg-[#12141A]">
-                <div>
-                    <div className="flex items-center justify-between p-5">
-                        <div className="flex items-center">
-                            <Link className="flex justify-center items-center text-foreground text-small" href="/competicoes">
-                                <Icon fontSize={24} icon="ion:chevron-back" />
-                                Voltar
-                            </Link>
+        <div className="mx-5 mt-5">
+            <h2 className="mb-4 text-lg font-bold text-primary">Dados</h2>
 
-                            <Divider className="mx-4 h-10" orientation="vertical" />
+            <Form className="grid grid-cols-12 gap-y-2 gap-x-2">
+                <Input className="col-span-12" label="Nome" />
 
-                            <Breadcrumbs size="md">
-                                <BreadcrumbItem href="/competicoes">Lista de competições</BreadcrumbItem>
-                                <BreadcrumbItem>Cadastrar competição</BreadcrumbItem>
-                            </Breadcrumbs>
-                        </div>
+                <DateRangePicker className="col-span-6" label="Duração" />
 
-                        <div className="flex gap-4">
-                            <Button onPress={() => handleReset(formRef)} type="reset" color="danger" variant="light">Limpar</Button>
-                            <Button onPress={() => handleSubmit(formRef)} color="primary" variant="solid">Salvar</Button>
-                        </div>
-                    </div>
+                <Autocomplete
+                    className="col-span-6"
+                    label="Esporte"
+                    defaultItems={esportes}
+                >
+                    {(esporte) => <AutocompleteItem key={esporte.key}>{esporte.label}</AutocompleteItem>}
+                </Autocomplete>
 
-                    <Stepper.Container activeStep={2}>
-                        <Stepper.Item label="DETALHES" />
-                        <Stepper.Item label="FASES" />
-                        <Stepper.Item label="COMPETIDORES" />
-                        <Stepper.Item label="LANÇAMENTO" />
-                    </Stepper.Container>
+                <Textarea className="col-span-6" label="Descrição" />
 
-                </div>
+                <Textarea className="col-span-6" label="Observações" />
 
-                <Divider orientation="horizontal" />
+                <h2 className="mt-8 mb-2 text-lg col-span-12 font-bold text-primary">Configurar competidores</h2>
 
-                <div className="grid grid-cols-12 mx-5 mt-5 gap-y-2 gap-x-2">
-                    <Input className="col-span-12" label="Nome" />
+                <RadioGroup classNames={{ wrapper: "grid grid-cols-12" }} className="col-span-12" label="Selecione o tipo de competidor" orientation="horizontal">
+                    <CustomRadio value="equipes" description="Fixar número de participantes">Equipes</CustomRadio>
+                    <CustomRadio value="competidores" description="Fixar número de equipes">Pessoas</CustomRadio>
+                </RadioGroup>
 
-                    <DateRangePicker className="col-span-6" label="Duração" />
-
-                    <Autocomplete
-                        className="col-span-6"
-                        label="Esporte"
-                        defaultItems={esportes}
-                    >
-                        {(esporte) => <AutocompleteItem key={esporte.key}>{esporte.label}</AutocompleteItem>}
-                    </Autocomplete>
-
-                    <Textarea className="col-span-6" label="Descrição" />
-
-                    <Textarea className="col-span-6" label="Observações" />
-
-                    <RadioGroup classNames={{ wrapper: "grid grid-cols-12" }} className="col-span-12 mt-3" label="Selecione o tipo de competidor" orientation="horizontal">
-                        <CustomRadio value="equipes" description="Fixar número de participantes">Equipes</CustomRadio>
-                        <CustomRadio value="competidores" description="Fixar número de equipes">Competidores</CustomRadio>
-                    </RadioGroup>
-
-                    <Input className="col-span-12" label="Tamanho" />
-                </div>
-            </div>
+                <Input className="col-span-12" label="Quantidade" />
+            </Form>
         </div>
     );
 }

@@ -39,7 +39,6 @@ export function StepperItem({ step = 1, label, activeStep = 1 }: IStepperItemPro
       <Progress
         radius="none"
         size="sm"
-        isIndeterminate={isActive}
         value={isCompleted ? 100 : 0}
         color={isActive || isCompleted ? "primary" : "default"}
         className="w-full"

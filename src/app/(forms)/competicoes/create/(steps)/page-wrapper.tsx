@@ -5,14 +5,44 @@ import { handleReset, handleSubmit } from "@/handlers/form-handlers";
 import { BreadcrumbItem, Breadcrumbs, Button, Divider } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
-import React, { ReactElement, useRef } from "react";
+import React, { ReactElement, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface IHeaderProps {
     children: React.ReactNode;
 }
 
 export default function PageWrapper({ children }: IHeaderProps) {
+    const router = useRouter();
+
+    const [step, setStep] = useState(1);
     const formRef = useRef<HTMLFormElement>(null);
+
+    const hrefs = [
+        "detalhes",
+        "fases",
+        "competidores",
+        "lancamento"
+    ];
+
+    const backward = () => {
+        if (step > 1) {
+            const currentStep = step - 1;
+            setStep(currentStep);
+            router.push(`/competicoes/create/${hrefs[currentStep - 1]}`)
+        }
+
+    };
+
+    const forward = () => {
+        debugger
+        if (step < 4) {
+            const currentStep = step + 1;
+            setStep(currentStep);
+            router.push(`/competicoes/create/${hrefs[currentStep - 1]}`)
+        }
+
+    };
 
     return (
         <div>
@@ -33,12 +63,22 @@ export default function PageWrapper({ children }: IHeaderProps) {
 
                 <div className="flex gap-4">
                     <Button onPress={() => handleReset(formRef)} type="reset" color="danger" variant="light">Limpar</Button>
-                    <Button onPress={() => handleSubmit(formRef)} color="primary" variant="flat">Voltar</Button>
-                    <Button onPress={() => handleSubmit(formRef)} color="primary" variant="solid">Avançar</Button>
+
+                    {
+                        step > 1 ?
+                            <Button onPress={() => backward()} color="primary" variant="flat">Voltar</Button> :
+                            null
+                    }
+
+                    {
+                        step < 4 ?
+                            <Button onPress={() => forward()} color="primary" variant="solid">Avançar</Button> :
+                            null
+                    }
                 </div>
             </div>
 
-            <Stepper.Container activeStep={1}>
+            <Stepper.Container activeStep={step}>
                 <Stepper.Item label="DETALHES" />
                 <Stepper.Item label="FASES" />
                 <Stepper.Item label="COMPETIDORES" />
