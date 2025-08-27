@@ -8,11 +8,11 @@ import Link from "next/link";
 import React, { ReactElement, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-interface IHeaderProps {
+interface IPageWrapperProps {
     children: React.ReactNode;
 }
 
-export default function PageWrapper({ children }: IHeaderProps) {
+export default function PageWrapper({ children }: IPageWrapperProps) {
     const router = useRouter();
 
     const [step, setStep] = useState(1);
@@ -20,7 +20,6 @@ export default function PageWrapper({ children }: IHeaderProps) {
 
     const hrefs = [
         "detalhes",
-        "fases",
         "competidores",
         "lancamento"
     ];
@@ -80,14 +79,17 @@ export default function PageWrapper({ children }: IHeaderProps) {
 
             <Stepper.Container activeStep={step}>
                 <Stepper.Item label="DETALHES" />
-                <Stepper.Item label="FASES" />
                 <Stepper.Item label="COMPETIDORES" />
                 <Stepper.Item label="LANÇAMENTO" />
             </Stepper.Container>
 
             <Divider orientation="horizontal" />
 
-            {children}
+            {
+                React.isValidElement(children)
+                    ? React.cloneElement(children, { formRef } as { formRef: React.RefObject<HTMLFormElement> })
+                    : children
+            }
         </div>
     )
 }

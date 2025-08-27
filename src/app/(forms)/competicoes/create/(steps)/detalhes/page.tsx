@@ -1,12 +1,26 @@
 "use client"
 
+import DataTable, { IColumn } from "@/components/data-table";
 import { Stepper } from "@/components/stepper/stepper";
 import { handleReset, handleSubmit } from "@/handlers/form-handlers";
 import { Autocomplete, AutocompleteItem, BreadcrumbItem, Breadcrumbs, Button, DateRangePicker, Divider, Form, Input, Radio, RadioGroup, RadioProps, Textarea } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
+
+interface IFase {
+    id: number,
+    ordem: number,
+    nome: string,
+    minParticipantes?: number,
+    maxParticipantes?: number,
+    maxClassificados?: number
+}
+
+interface ICreateCompeticaoDetalhesStepPageProps {
+    formRef: React.RefObject<HTMLFormElement>
+}
 
 const CustomRadio = (props: RadioProps) => {
     const { children, ...otherProps } = props;
@@ -29,43 +43,71 @@ const CustomRadio = (props: RadioProps) => {
     );
 };
 
-export default function CreateCompeticaoDetalhesStepPage() {
-    const formRef = useRef<HTMLFormElement>(null);
+export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCompeticaoDetalhesStepPageProps) {
+    const [dtFase_rows, setDtFase_rows] = useState<IFase[]>([]);
 
     const esportes = [
         { label: "Vôlei de praia", key: "voleipraia01" },
         { label: "Futebol", key: "futebol01" },
     ];
 
+    const dtFases_columns: IColumn<IFase>[] = [
+        {
+            name: "ordem",
+            key: "ordem",
+            label: "ORDEM",
+            align: "end"
+        },
+
+        {
+            name: "nome",
+            key: "nome",
+            label: "FASE",
+            align: "start"
+        }
+    ];
+
     return (
-        <div className="mx-5 mt-5">
-            <h2 className="mb-4 text-lg font-bold text-primary">Dados</h2>
+        <div className="mx-5 my-5">
+            <Form ref={formRef} className="flex flex-col gap-5">
+                <fieldset className="grid grid-cols-12 gap-y-2 gap-x-2 w-full">
+                    <legend className="text-lg mb-2 font-bold text-primary">Dados</legend>
 
-            <Form className="grid grid-cols-12 gap-y-2 gap-x-2">
-                <Input className="col-span-12" label="Nome" />
+                    <Input className="col-span-12" label="Nome" />
 
-                <DateRangePicker className="col-span-6" label="Duração" />
+                    <DateRangePicker className="col-span-6" label="Duração" />
 
-                <Autocomplete
-                    className="col-span-6"
-                    label="Esporte"
-                    defaultItems={esportes}
-                >
-                    {(esporte) => <AutocompleteItem key={esporte.key}>{esporte.label}</AutocompleteItem>}
-                </Autocomplete>
+                    <Autocomplete
+                        className="col-span-6"
+                        label="Esporte"
+                        defaultItems={esportes}
+                    >
+                        {(esporte) => <AutocompleteItem key={esporte.key}>{esporte.label}</AutocompleteItem>}
+                    </Autocomplete>
 
-                <Textarea className="col-span-6" label="Descrição" />
+                    <Textarea className="col-span-6" label="Descrição" />
 
-                <Textarea className="col-span-6" label="Observações" />
+                    <Textarea className="col-span-6" label="Observações" />
+                </fieldset>
 
-                <h2 className="mt-8 mb-2 text-lg col-span-12 font-bold text-primary">Configurar competidores</h2>
+                <fieldset className="grid grid-cols-12 gap-y-2 gap-x-2 w-full">
+                    <legend className="text-lg mb-2 col-span-12 font-bold text-primary">Configurar competidores</legend>
 
-                <RadioGroup classNames={{ wrapper: "grid grid-cols-12" }} className="col-span-12" label="Selecione o tipo de competidor" orientation="horizontal">
-                    <CustomRadio value="equipes" description="Fixar número de participantes">Equipes</CustomRadio>
-                    <CustomRadio value="competidores" description="Fixar número de equipes">Pessoas</CustomRadio>
-                </RadioGroup>
+                    <RadioGroup classNames={{ wrapper: "grid grid-cols-12" }} className="col-span-12" label="Selecione o tipo de competidor" orientation="horizontal">
+                        <CustomRadio value="equipes" description="Fixar número de participantes">Equipes</CustomRadio>
+                        <CustomRadio value="competidores" description="Fixar número de equipes">Pessoas</CustomRadio>
+                    </RadioGroup>
 
-                <Input className="col-span-12" label="Quantidade" />
+                    <Input className="col-span-12" label="Quantidade" />
+                </fieldset>
+
+                <fieldset className="grid grid-cols-12 gap-y-2 gap-x-2 w-full">
+                    <legend className="text-lg mb-2 font-bold text-primary">Configurar fases</legend>
+
+                    <div className="col-span-12">
+                        <DataTable columns={dtFases_columns} rows={dtFase_rows} />
+                    </div>
+                </fieldset>
             </Form>
         </div>
     );
