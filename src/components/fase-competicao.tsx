@@ -11,7 +11,7 @@ interface IFaseContainerProps extends HTMLAttributes<HTMLDivElement> {
 export default function FaseCompeticao({ icon = "", title, description = "", className = "" }: IFaseContainerProps) {
     return (
         <div className={twMerge(
-            "cursor-pointer w-72 rounded-2xl shadow-md bg-white border border-gray-200 hover:shadow-lg transition p-5 flex flex-col items-center text-center",
+            "cursor-pointer w-72 rounded-2xl shadow-sm bg-white dark:bg-[#12141A] border border-default-100 hover:scale-102 hover:bg-primary-100 hover:shadow-md transition p-5 flex flex-col items-center text-center",
             className
         )}>
             {!!icon && (
