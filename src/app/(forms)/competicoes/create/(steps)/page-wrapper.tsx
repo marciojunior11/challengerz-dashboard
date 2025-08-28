@@ -45,45 +45,47 @@ export default function PageWrapper({ children }: IPageWrapperProps) {
 
     return (
         <div>
-            <div className="flex items-center justify-between p-5">
-                <div className="flex items-center">
-                    <Link className="flex justify-center items-center text-foreground text-small" href="/competicoes">
-                        <Icon fontSize={24} icon="ion:chevron-back" />
-                        Voltar
-                    </Link>
+            <div className="sticky top-0 z-50 backdrop-blur-sm bg-white/50 dark:bg-[#12141A]/50">
+                <div className="flex items-center justify-between p-5">
+                    <div className="flex items-center">
+                        <Link className="flex justify-center items-center text-foreground text-small" href="/competicoes">
+                            <Icon fontSize={24} icon="ion:chevron-back" />
+                            Voltar
+                        </Link>
 
-                    <Divider className="mx-4 h-10" orientation="vertical" />
+                        <Divider className="mx-4 h-10" orientation="vertical" />
 
-                    <Breadcrumbs size="md">
-                        <BreadcrumbItem href="/competicoes">Lista de competições</BreadcrumbItem>
-                        <BreadcrumbItem>Cadastrar competição</BreadcrumbItem>
-                    </Breadcrumbs>
+                        <Breadcrumbs size="md">
+                            <BreadcrumbItem href="/competicoes">Lista de competições</BreadcrumbItem>
+                            <BreadcrumbItem>Cadastrar competição</BreadcrumbItem>
+                        </Breadcrumbs>
+                    </div>
+
+                    <div className="flex gap-4">
+                        <Button onPress={() => handleReset(formRef)} type="reset" color="danger" variant="light">Limpar</Button>
+
+                        {
+                            step > 1 ?
+                                <Button onPress={() => backward()} color="primary" variant="flat">Voltar</Button> :
+                                null
+                        }
+
+                        {
+                            step < 4 ?
+                                <Button onPress={() => forward()} color="primary" variant="solid">Avançar</Button> :
+                                null
+                        }
+                    </div>
                 </div>
 
-                <div className="flex gap-4">
-                    <Button onPress={() => handleReset(formRef)} type="reset" color="danger" variant="light">Limpar</Button>
+                <Stepper.Container activeStep={step}>
+                    <Stepper.Item label="DETALHES" />
+                    <Stepper.Item label="COMPETIDORES" />
+                    <Stepper.Item label="LANÇAMENTO" />
+                </Stepper.Container>
 
-                    {
-                        step > 1 ?
-                            <Button onPress={() => backward()} color="primary" variant="flat">Voltar</Button> :
-                            null
-                    }
-
-                    {
-                        step < 4 ?
-                            <Button onPress={() => forward()} color="primary" variant="solid">Avançar</Button> :
-                            null
-                    }
-                </div>
+                <Divider orientation="horizontal" />
             </div>
-
-            <Stepper.Container activeStep={step}>
-                <Stepper.Item label="DETALHES" />
-                <Stepper.Item label="COMPETIDORES" />
-                <Stepper.Item label="LANÇAMENTO" />
-            </Stepper.Container>
-
-            <Divider orientation="horizontal" />
 
             {
                 React.isValidElement(children)

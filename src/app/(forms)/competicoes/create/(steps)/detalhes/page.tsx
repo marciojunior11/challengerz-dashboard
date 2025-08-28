@@ -71,7 +71,8 @@ export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCom
         <div className="mx-5 my-5">
             <Form ref={formRef} className="flex flex-col gap-5">
                 <fieldset className="grid grid-cols-12 gap-y-2 gap-x-2 w-full">
-                    <legend className="text-lg mb-2 font-bold text-primary">Dados</legend>
+                    <legend className="col-span-12 text-lg mb-2 font-bold text-content4">Dados</legend>
+                    <span className="col-span-12 text-sm mb-2 text-content3">Dados gerais da competição</span>
 
                     <Input className="col-span-12" label="Nome" />
 
@@ -90,8 +91,11 @@ export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCom
                     <Textarea className="col-span-6" label="Observações" />
                 </fieldset>
 
+                <Divider orientation="horizontal" />
+
                 <fieldset className="grid grid-cols-12 gap-y-2 gap-x-2 w-full">
-                    <legend className="text-lg mb-2 col-span-12 font-bold text-primary">Configurar competidores</legend>
+                    <legend className="col-span-12 text-lg mb-2 font-bold text-content4">Competidores</legend>
+                    <span className="col-span-12 text-sm mb-2 text-content3">Configurar como os competidores são tratados</span>
 
                     <RadioGroup classNames={{ wrapper: "grid grid-cols-12" }} className="col-span-12" label="Selecione o tipo de competidor" orientation="horizontal">
                         <CustomRadio value="equipes" description="Fixar número de participantes">Equipes</CustomRadio>
@@ -101,11 +105,18 @@ export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCom
                     <Input className="col-span-12" label="Quantidade" />
                 </fieldset>
 
-                <fieldset className="grid grid-cols-12 gap-y-2 gap-x-2 w-full">
-                    <legend className="text-lg mb-2 font-bold text-primary">Configurar fases</legend>
+                <Divider orientation="horizontal" />
 
-                    <div className="col-span-12">
-                        <DataTable columns={dtFases_columns} rows={dtFase_rows} />
+                <fieldset className="grid grid-cols-12 gap-y-2 gap-x-2 w-full">
+                    <legend className="col-span-12 text-lg mb-2 font-bold text-content4">Fases</legend>
+                    <span className="col-span-12 text-sm mb-2 text-content3">Configurar as fases da competição</span>
+
+                    <div className="w-72 rounded-2xl shadow-md bg-white border border-gray-200 hover:shadow-lg transition p-5 flex flex-col items-center text-center">
+                        <div className="w-14 h-14 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 mb-4">
+                            <Icon icon="icon-park-twotone:trophy" fontSize={28} />
+                        </div>
+                        <h3 className="text-xl font-semibold text-gray-800">Fase de Grupos</h3>
+                        <p className="text-gray-500 text-sm mt-2">Times divididos em grupos jogam entre si.</p>
                     </div>
                 </fieldset>
             </Form>
