@@ -1,4 +1,5 @@
 import { Progress } from "@heroui/react";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { twMerge } from "tailwind-merge";
 
 export interface IStepperItemProps {
@@ -18,17 +19,19 @@ export function StepperItem({ step = 1, label, activeStep = 1 }: IStepperItemPro
           className={twMerge(
             "flex items-center justify-center w-10 h-10 rounded-full font-bold border-2 transition-colors",
             isActive && "border-primary text-primary",
-            isCompleted && "bg-primary border-primary text-white",
+            isCompleted && "bg-success border-success text-success-300",
             !isActive && !isCompleted && "border-gray-300 text-gray-400 font-semibold"
           )}
         >
-          {step.toString().padStart(2, "0")}
+          {isCompleted && <Icon icon="ph:check-fat-duotone" fontSize={28} />}
+          {!isCompleted && step.toString().padStart(2, "0")}
         </div>
+
         <span
           className={twMerge(
             "text-sm transition-colors",
             isActive && "font-bold text-primary",
-            isCompleted && "font-semibold text-primary",
+            isCompleted && "font-semibold text-success",
             !isActive && !isCompleted && "font-medium text-gray-400"
           )}
         >
@@ -40,7 +43,7 @@ export function StepperItem({ step = 1, label, activeStep = 1 }: IStepperItemPro
         radius="none"
         size="sm"
         value={isCompleted ? 100 : 0}
-        color={isActive || isCompleted ? "primary" : "default"}
+        color={isActive ? "primary" : isCompleted ? "success" : "default"}
         className="w-full"
       />
     </li>
