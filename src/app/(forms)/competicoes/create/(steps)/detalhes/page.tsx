@@ -1,6 +1,7 @@
 "use client"
 
 import DataTable, { IColumn } from "@/components/data-table";
+import FaseCompeticao from "@/components/fase-competicao";
 import { Stepper } from "@/components/stepper/stepper";
 import { handleReset, handleSubmit } from "@/handlers/form-handlers";
 import { Autocomplete, AutocompleteItem, BreadcrumbItem, Breadcrumbs, Button, DateRangePicker, Divider, Form, Input, Radio, RadioGroup, RadioProps, Textarea } from "@heroui/react";
@@ -111,13 +112,32 @@ export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCom
                     <legend className="col-span-12 text-lg mb-2 font-bold text-content4">Fases</legend>
                     <span className="col-span-12 text-sm mb-2 text-content3">Configurar as fases da competição</span>
 
-                    <div className="w-72 rounded-2xl shadow-md bg-white border border-gray-200 hover:shadow-lg transition p-5 flex flex-col items-center text-center">
-                        <div className="w-14 h-14 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 mb-4">
-                            <Icon icon="icon-park-twotone:trophy" fontSize={28} />
-                        </div>
-                        <h3 className="text-xl font-semibold text-gray-800">Fase de Grupos</h3>
-                        <p className="text-gray-500 text-sm mt-2">Times divididos em grupos jogam entre si.</p>
-                    </div>
+                    <FaseCompeticao
+                        className="col-span-4"
+                        icon={
+                            <Icon icon="fluent-mdl2:table-group" fontSize={28} />
+                        }
+                        title="Fase de grupos"
+                        description="Competidores divididos em grupos competem entre si" />
+
+                    <FaseCompeticao
+                        className="col-span-4"
+                        icon={
+                            <Icon icon="bi:diagram-2-fill" fontSize={28} />
+                        }
+                        title="Eliminatória simples"
+                        description="Competidores jogam pela permanência na competição, partida a partida" />
+
+                    <FaseCompeticao
+                        className="col-span-4"
+                        icon={
+                            <div className="flex justify-center items-center">
+                                <Icon icon="bi:diagram-2-fill" fontSize={28} />
+                                <span className="-ml-1 w-4 h-4 text-xs flex items-center justify-center rounded-full bg-primary text-primary-200">2</span>
+                            </div>
+                        }                        
+                        title="Eliminatória dupla"
+                        description="Competidores jogam com chance de retornar após perder" />
                 </fieldset>
             </Form>
         </div>

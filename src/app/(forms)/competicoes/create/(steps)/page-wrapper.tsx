@@ -45,7 +45,7 @@ export default function PageWrapper({ children }: IPageWrapperProps) {
 
     return (
         <div>
-            <div className="sticky top-0 z-50 backdrop-blur-sm bg-white/50 dark:bg-[#12141A]/50">
+            <div className="rounded-t-xl sticky top-0 z-50 backdrop-blur-sm bg-white/50 dark:bg-[#12141A]/50">
                 <div className="flex items-center justify-between p-5">
                     <div className="flex items-center">
                         <Link className="flex justify-center items-center text-foreground text-small" href="/competicoes">

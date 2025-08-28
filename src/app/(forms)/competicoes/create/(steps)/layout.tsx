@@ -14,8 +14,8 @@ export default function StepsLayout({
 }>) {
 
     return (
-        <div className="flex flex-1 h-screen justify-center">
-            <div className="w-1/2 bg-paper m-4 rounded-xl flex flex-col bg-white dark:bg-[#12141A] overflow-auto">
+        <div suppressHydrationWarning className="flex flex-1 min-h-screen justify-center">
+            <div className="w-1/2 bg-paper m-4 rounded-xl flex flex-col bg-white dark:bg-[#12141A]">
                 <PageWrapper>
                     {children}
                 </PageWrapper>
