@@ -4,7 +4,7 @@ import DataTable, { IColumn } from "@/components/data-table";
 import FaseCompeticao from "@/components/fase-competicao";
 import { Stepper } from "@/components/stepper/stepper";
 import { handleReset, handleSubmit } from "@/handlers/form-handlers";
-import { Autocomplete, AutocompleteItem, BreadcrumbItem, Breadcrumbs, Button, DateRangePicker, Divider, Form, Input, Radio, RadioGroup, RadioProps, Textarea } from "@heroui/react";
+import { Autocomplete, AutocompleteItem, BreadcrumbItem, Breadcrumbs, Button, DateRangePicker, Divider, Form, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Radio, RadioGroup, RadioProps, Textarea, useDisclosure } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 import { useRef, useState } from "react";
@@ -45,6 +45,36 @@ const CustomRadio = (props: RadioProps) => {
 };
 
 export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCompeticaoDetalhesStepPageProps) {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+    const [selectedFase, setSelectedFase] = useState<IFase | null | undefined>(null);
+
+    const competicao_fases: IFase[] = [
+        { 
+            id: 1,
+            nome: "Fase de grupos",
+            ordem: 0,            
+        },
+
+        { 
+            id: 2,
+            nome: "Eliminatória simples",
+            ordem: 0,            
+        },
+        
+        { 
+            id: 3,
+            nome: "Eliminatória dupla",
+            ordem: 0,            
+        },        
+    ];
+
+    function setCard(id: number) {
+        let fase = competicao_fases.find(u => u.id == id);
+
+        setSelectedFase(fase);
+    }
+
     const [dtFase_rows, setDtFase_rows] = useState<IFase[]>([]);
 
     const esportes = [
@@ -113,6 +143,11 @@ export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCom
                     <span className="col-span-12 text-sm mb-2 text-content3">Configurar as fases da competição</span>
 
                     <FaseCompeticao
+                        data-id={1}
+                        onClick={() => {
+                            setCard(1);
+                            onOpen();
+                        }}
                         className="col-span-4"
                         icon={
                             <Icon icon="fluent-mdl2:table-group" fontSize={28} />
@@ -121,6 +156,11 @@ export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCom
                         description="Competidores divididos em grupos competem entre si" />
 
                     <FaseCompeticao
+                        data-id={2}
+                        onClick={() => {
+                            setCard(2);
+                            onOpen();
+                        }}
                         className="col-span-4"
                         icon={
                             <Icon icon="bi:diagram-2-fill" fontSize={28} />
@@ -129,17 +169,59 @@ export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCom
                         description="Competidores jogam pela permanência na competição, partida a partida" />
 
                     <FaseCompeticao
+                        data-id={3}
+                        onClick={() => {
+                            setCard(3);
+                            onOpen();
+                        }}
                         className="col-span-4"
                         icon={
                             <div className="flex justify-center items-center">
                                 <Icon icon="bi:diagram-2-fill" fontSize={28} />
                                 <span className="-ml-1 w-4 h-4 text-xs flex items-center justify-center rounded-full bg-primary text-primary-200">2</span>
                             </div>
-                        }                        
+                        }
                         title="Eliminatória dupla"
                         description="Competidores jogam com chance de retornar após perder" />
                 </fieldset>
             </Form>
+
+            <Modal
+                isDismissable={false}
+                isKeyboardDismissDisabled={true}
+                isOpen={isOpen}
+            >
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader>{selectedFase?.nome}</ModalHeader>
+                            <ModalBody>
+                                <Form className="grid grid-cols-12 gap-y-2 gap-x-2 w-full">
+                                    <Input className="col-span-12" label="Pontos por vitória"/>
+                                    <Input className="col-span-12" label="Pontos por empate"/>
+                                    <Input className="col-span-12" label="Pontos por derrota"/>
+                                    <Input className="col-span-12" label="Pontos para classificar"/>
+                                    <Input className="col-span-12" label="Pontos para eliminar"/>
+                                    <Input className="col-span-12" label="Mínimo de pontos requeridos"/>
+                                    <Input className="col-span-12" label="Vitórias para classificar"/>
+                                    <Input className="col-span-12" label="Vitórias para eliminar"/>
+                                    <Input className="col-span-12" label="Máximo de participantes"/>
+                                    <Input className="col-span-12" label="Qtd. Mínima de classificados"/>
+                                    <Input className="col-span-12" label="Qtd. Mínima de eliminados"/>
+                                </Form>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="danger" variant="light" onPress={onClose}>
+                                    Fechar
+                                </Button>
+                                <Button color="primary" onPress={onClose}>
+                                    Adicionar
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
         </div>
     );
 }
