@@ -13,3 +13,71 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Pessoa {
+  id Int @id @default(autoincrement()) @map("id")
+
+  PessoaFisica   PessoaFisica?
+  PessoaJuridica PessoaJuridica?
+
+  @@map("tb_pessoas")
+}
+
+model PessoaFisica {
+  id             Int      @id @map("id")
+  nomeCompleto   String   @map("nomecompleto") @db.VarChar(255)
+  cpf            String   @map("cpf") @db.VarChar(11)
+  rg             String   @map("rg") @db.VarChar(11)
+  dataNascimento DateTime @map("datanascimento")
+
+  Pessoa Pessoa @relation(fields: [id], references: [id])
+
+  @@map("tb_pessoas_fisicas")
+}
+
+model PessoaJuridica {
+  id           Int    @id @map("id")
+  razaoSocial  String @map("razaosocial") @db.VarChar(255)
+  nomeFantasia String @map("nomefantasia") @db.VarChar(255)
+  cnpj         String @map("cnpj") @db.VarChar(14)
+
+  Pessoa Pessoa @relation(fields: [id], references: [id])
+
+  @@map("tb_pessoas_juridicas")
+}
+
+model Esporte {
+  id   Int    @id @default(autoincrement()) @map("id")
+  nome String @map("nome") @db.VarChar(255)
+
+  EsportePeriodos TipoPeriodo[]
+  Competicoes     Competicao[]
+
+  @@map("tb_esportes")
+}
+
+model TipoPeriodo {
+  id             Int      @id @default(autoincrement()) @map("id")
+  nome           String   @map("nome") @db.VarChar(255)
+  minimoPontos   Decimal? @map("minimopontos")
+  maximoPontos   Decimal? @map("maximopontos")
+  vantagemMinima Decimal? @map("vantagemminina")
+  limiteTempo    Int?     @map("tempoperiodo")
+  idEsporte      Int      @map("idesporte")
+
+  Esporte Esporte @relation(fields: [idEsporte], references: [id])
+}
+
+model Competicao {
+  id          Int      @id @default(autoincrement()) @map("id")
+  nome        String   @map("nome") @db.VarChar(255)
+  descricao   String   @map("descricao") @db.VarChar(4000)
+  observacoes String   @map("observacoes") @db.VarChar(4000)
+  dataInicio  DateTime @map("datainicio")
+  dataFim     DateTime @map("datafim")
+  idEsporte   Int      @map("idesporte")
+
+  Esporte Esporte @relation(fields: [idEsporte], references: [id])
+
+  @@map("tb_competicoes")
+}
