@@ -30,7 +30,8 @@ model PessoaFisica {
   rg             String   @map("rg") @db.VarChar(11)
   dataNascimento DateTime @map("datanascimento")
 
-  Pessoa Pessoa @relation(fields: [id], references: [id])
+  Pessoa                 Pessoa                 @relation(fields: [id], references: [id])
+  CompeticaoCompetidores CompeticaoCompetidor[]
 
   @@map("tb_pessoas_fisicas")
 }
@@ -50,8 +51,8 @@ model Esporte {
   id   Int    @id @default(autoincrement()) @map("id")
   nome String @map("nome") @db.VarChar(255)
 
-  EsportePeriodos TipoPeriodo[]
-  Competicoes     Competicao[]
+  TipoPeriodos TipoPeriodo[]
+  Competicoes  Competicao[]
 
   @@map("tb_esportes")
 }
@@ -65,7 +66,8 @@ model TipoPeriodo {
   limiteTempo    Int?     @map("tempoperiodo")
   idEsporte      Int      @map("idesporte")
 
-  Esporte Esporte @relation(fields: [idEsporte], references: [id])
+  Esporte            Esporte             @relation(fields: [idEsporte], references: [id])
+  CompeticaoPeriodos CompeticaoPeriodo[]
 }
 
 model Competicao {
@@ -77,7 +79,42 @@ model Competicao {
   dataFim     DateTime @map("datafim")
   idEsporte   Int      @map("idesporte")
 
-  Esporte Esporte @relation(fields: [idEsporte], references: [id])
+  Esporte                Esporte                @relation(fields: [idEsporte], references: [id])
+  CompeticaoPeriodos     CompeticaoPeriodo[]
+  CompeticaoCompetidores CompeticaoCompetidor[]
 
   @@map("tb_competicoes")
+}
+
+model CompeticaoPeriodo {
+  idCompeticao   Int      @map("idcompeticao")
+  idTipoPeriodo  Int      @map("idtipoperiodo")
+  minimoPontos   Decimal? @map("minimopontos")
+  maximoPontos   Decimal? @map("maximopontos")
+  vantagemMinima Decimal? @map("vantagemminina")
+  limiteTempo    Int?     @map("tempoperiodo")
+
+  Competicao  Competicao  @relation(fields: [idCompeticao], references: [id])
+  TipoPeriodo TipoPeriodo @relation(fields: [idTipoPeriodo], references: [id])
+
+  @@id([idCompeticao, idTipoPeriodo])
+  @@map("tb_competicoes_periodos")
+}
+
+model CompeticaoCompetidor {
+  idCompeticao Int @map("idcompeticao")
+  idCompetidor Int @map("idcompetidor")
+
+  Competicao Competicao   @relation(fields: [idCompeticao], references: [id])
+  Competidor PessoaFisica @relation(fields: [idCompetidor], references: [id])
+
+  @@id([idCompeticao, idCompetidor])
+  @@map("tb_competicoes_competidores")
+}
+
+model Equipe {
+  id   Int    @id @default(autoincrement()) @map("id")
+  nome String @map("nome") @db.VarChar(255)
+
+  @@map("tb_equipes")
 }
