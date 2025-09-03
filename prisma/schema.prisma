@@ -32,6 +32,7 @@ model PessoaFisica {
 
   Pessoa                 Pessoa                 @relation(fields: [id], references: [id])
   CompeticaoCompetidores CompeticaoCompetidor[]
+  EquipeCompetidores     EquipeCompetidor[]
 
   @@map("tb_pessoas_fisicas")
 }
@@ -68,16 +69,20 @@ model TipoPeriodo {
 
   Esporte            Esporte             @relation(fields: [idEsporte], references: [id])
   CompeticaoPeriodos CompeticaoPeriodo[]
+
+  @@map("tb_tipos_periodo")
 }
 
 model Competicao {
-  id          Int      @id @default(autoincrement()) @map("id")
-  nome        String   @map("nome") @db.VarChar(255)
-  descricao   String   @map("descricao") @db.VarChar(4000)
-  observacoes String   @map("observacoes") @db.VarChar(4000)
-  dataInicio  DateTime @map("datainicio")
-  dataFim     DateTime @map("datafim")
-  idEsporte   Int      @map("idesporte")
+  id             Int            @id @default(autoincrement()) @map("id")
+  nome           String         @map("nome") @db.VarChar(255)
+  descricao      String         @map("descricao") @db.VarChar(4000)
+  observacoes    String         @map("observacoes") @db.VarChar(4000)
+  dataInicio     DateTime       @map("datainicio")
+  dataFim        DateTime       @map("datafim")
+  tipoCompetidor TipoCompetidor @map("tipocompetidor")
+
+  idEsporte Int @map("idesporte")
 
   Esporte                Esporte                @relation(fields: [idEsporte], references: [id])
   CompeticaoPeriodos     CompeticaoPeriodo[]
@@ -116,5 +121,29 @@ model Equipe {
   id   Int    @id @default(autoincrement()) @map("id")
   nome String @map("nome") @db.VarChar(255)
 
+  EquipeCompetidores EquipeCompetidor[]
+
   @@map("tb_equipes")
+}
+
+model EquipeCompetidor {
+  idEquipe     Int                      @map("idequipe")
+  idCompetidor Int                      @map("idcompetidor")
+  situacao     SituacaoEquipeCompetidor @default(ATIVO) @map("situacao")
+
+  Equipe     Equipe       @relation(fields: [idEquipe], references: [id])
+  Competidor PessoaFisica @relation(fields: [idCompetidor], references: [id])
+
+  @@id([idEquipe, idCompetidor])
+  @@map("tb_equipes_competidores")
+}
+
+enum TipoCompetidor {
+  INDIVIDUAL
+  EQUIPE
+}
+
+enum SituacaoEquipeCompetidor {
+  ATIVO
+  INATIVO
 }
