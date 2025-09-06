@@ -30,7 +30,8 @@ model PessoaFisica {
   rg             String   @map("rg") @db.VarChar(11)
   dataNascimento DateTime @map("datanascimento")
 
-  Pessoa                 Pessoa                 @relation(fields: [id], references: [id])
+  Pessoa Pessoa @relation(fields: [id], references: [id])
+
   CompeticaoCompetidores CompeticaoCompetidor[]
   EquipeCompetidores     EquipeCompetidor[]
 
@@ -67,8 +68,9 @@ model TipoPeriodo {
   limiteTempo    Int?     @map("tempoperiodo")
   idEsporte      Int      @map("idesporte")
 
-  Esporte            Esporte             @relation(fields: [idEsporte], references: [id])
-  CompeticaoPeriodos CompeticaoPeriodo[]
+  Esporte Esporte @relation(fields: [idEsporte], references: [id])
+
+  Periodos CompeticaoFasePeriodo[]
 
   @@map("tb_tipos_periodo")
 }
@@ -81,29 +83,82 @@ model Competicao {
   dataInicio     DateTime       @map("datainicio")
   dataFim        DateTime       @map("datafim")
   tipoCompetidor TipoCompetidor @map("tipocompetidor")
+  idEsporte      Int            @map("idesporte")
 
-  idEsporte Int @map("idesporte")
+  Esporte Esporte @relation(fields: [idEsporte], references: [id])
 
-  Esporte                Esporte                @relation(fields: [idEsporte], references: [id])
-  CompeticaoPeriodos     CompeticaoPeriodo[]
-  CompeticaoCompetidores CompeticaoCompetidor[]
+  Competidores CompeticaoCompetidor[]
+  Fases        CompeticaoFase[]
 
   @@map("tb_competicoes")
 }
 
-model CompeticaoPeriodo {
-  idCompeticao   Int      @map("idcompeticao")
-  idTipoPeriodo  Int      @map("idtipoperiodo")
-  minimoPontos   Decimal? @map("minimopontos")
-  maximoPontos   Decimal? @map("maximopontos")
-  vantagemMinima Decimal? @map("vantagemminina")
-  limiteTempo    Int?     @map("tempoperiodo")
+model TipoFase {
+  id                    Int                   @id @default(autoincrement()) @map("id")
+  nome                  String                @map("nome") @db.VarChar(255)
+  vitoriasClassificacao Int?                  @map("vitoriasclassificacao")
+  derrotasEliminacao    Int?                  @map("derrotaseliminacao")
+  pontosVitoria         Decimal?              @map("pontosvitoria")
+  pontosEmpate          Decimal?              @map("pontosempate")
+  pontosDerrota         Decimal?              @map("pontosderrota")
+  formato               FormatoTipoCompeticao @map("formato")
+  formula               String                @map("formula") @db.VarChar(50)
+  campos                Json                  @map("campos")
 
-  Competicao  Competicao  @relation(fields: [idCompeticao], references: [id])
-  TipoPeriodo TipoPeriodo @relation(fields: [idTipoPeriodo], references: [id])
+  Fases CompeticaoFase[]
 
-  @@id([idCompeticao, idTipoPeriodo])
-  @@map("tb_competicoes_periodos")
+  @@map("tb_tipos_fase")
+}
+
+model CompeticaoFase {
+  id                    Int      @id @default(autoincrement()) @map("id")
+  idCompeticao          Int      @map("idcompeticao")
+  idTipoFase            Int      @map("idtipofase")
+  vitoriasClassificacao Int?     @map("vitoriasclassificacao")
+  derrotasEliminacao    Int?     @map("derrotaseliminacao")
+  pontosVitoria         Decimal? @map("pontosvitoria")
+  pontosEmpate          Decimal? @map("pontosempate")
+  pontosDerrota         Decimal? @map("pontosderrota")
+  maximoClassificados   Int?     @map("maximoclassificados")
+  maximoEliminados      Int?     @map("maximoeliminados")
+  turnos                Int?     @map("turnos")
+
+  Competicao Competicao @relation(fields: [idCompeticao], references: [id])
+  TipoFase   TipoFase   @relation(fields: [idTipoFase], references: [id])
+
+  Grupos   CompeticaoFaseGrupo[]
+  Periodos CompeticaoFasePeriodo[]
+
+  @@map("tb_competicoes_fases")
+}
+
+model CompeticaoFasePeriodo {
+  id               Int      @id @default(autoincrement()) @map("id")
+  nome             String   @map("nome") @db.VarChar(255)
+  idCompeticaoFase Int      @map("idcompeticaofase")
+  idTipoPeriodo    Int      @map("idtipoperiodo")
+  minimoPontos     Decimal? @map("minimopontos")
+  maximoPontos     Decimal? @map("maximopontos")
+  vantagemMinima   Decimal? @map("vantagemminina")
+  limiteTempo      Int?     @map("tempoperiodo")
+
+  Fase        CompeticaoFase @relation(fields: [idCompeticaoFase], references: [id])
+  TipoPeriodo TipoPeriodo    @relation(fields: [idTipoPeriodo], references: [id])
+
+  @@map("tb_competicoes_faes_periodos")
+}
+
+model CompeticaoFaseGrupo {
+  id               Int    @id @default(autoincrement()) @map("id")
+  nome             String @map("nome") @db.VarChar(255)
+  idCompeticaoFase Int    @map("idcompeticaofase")
+  tamanho          Int    @map("tamanho")
+  tamanhoMinimo    Int?   @map("tamanhominimo")
+  tamanhoMaximo    Int?   @map("tamanhomaximo")
+
+  Fase CompeticaoFase @relation(fields: [idCompeticaoFase], references: [id])
+
+  @@map("tb_competicoes_fases_grupos")
 }
 
 model CompeticaoCompetidor {
@@ -136,6 +191,11 @@ model EquipeCompetidor {
 
   @@id([idEquipe, idCompetidor])
   @@map("tb_equipes_competidores")
+}
+
+enum FormatoTipoCompeticao {
+  TABELA
+  CHAVE
 }
 
 enum TipoCompetidor {
