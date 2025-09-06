@@ -145,7 +145,7 @@ model CompeticaoFasePeriodo {
   Fase        CompeticaoFase @relation(fields: [idCompeticaoFase], references: [id])
   TipoPeriodo TipoPeriodo    @relation(fields: [idTipoPeriodo], references: [id])
 
-  @@map("tb_competicoes_faes_periodos")
+  @@map("tb_competicoes_fases_periodos")
 }
 
 model CompeticaoFaseGrupo {
