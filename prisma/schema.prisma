@@ -75,6 +75,23 @@ model TipoPeriodo {
   @@map("tb_tipos_periodo")
 }
 
+model TipoFase {
+  id                    Int                    @id @default(autoincrement()) @map("id")
+  nome                  String                 @map("nome") @db.VarChar(255)
+  vitoriasClassificacao Int?                   @map("vitoriasclassificacao")
+  derrotasEliminacao    Int?                   @map("derrotaseliminacao")
+  pontosVitoria         Decimal?               @map("pontosvitoria")
+  pontosEmpate          Decimal?               @map("pontosempate")
+  pontosDerrota         Decimal?               @map("pontosderrota")
+  formato               FormatoTipoCompeticao? @map("formato")
+  formula               String                 @map("formula") @db.VarChar(50)
+  campos                Json?                  @map("campos")
+
+  Fases CompeticaoFase[]
+
+  @@map("tb_tipos_fase")
+}
+
 model Competicao {
   id             Int            @id @default(autoincrement()) @map("id")
   nome           String         @map("nome") @db.VarChar(255)
@@ -91,23 +108,6 @@ model Competicao {
   Fases        CompeticaoFase[]
 
   @@map("tb_competicoes")
-}
-
-model TipoFase {
-  id                    Int                   @id @default(autoincrement()) @map("id")
-  nome                  String                @map("nome") @db.VarChar(255)
-  vitoriasClassificacao Int?                  @map("vitoriasclassificacao")
-  derrotasEliminacao    Int?                  @map("derrotaseliminacao")
-  pontosVitoria         Decimal?              @map("pontosvitoria")
-  pontosEmpate          Decimal?              @map("pontosempate")
-  pontosDerrota         Decimal?              @map("pontosderrota")
-  formato               FormatoTipoCompeticao @map("formato")
-  formula               String                @map("formula") @db.VarChar(50)
-  campos                Json                  @map("campos")
-
-  Fases CompeticaoFase[]
-
-  @@map("tb_tipos_fase")
 }
 
 model CompeticaoFase {
