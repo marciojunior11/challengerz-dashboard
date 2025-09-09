@@ -1,5 +1,6 @@
 "use client"
 
+import { GetEsportes } from "@/app/(server-actions)/esportes/actions";
 import DataTable, { IColumn } from "@/components/data-table";
 import FaseCompeticao from "@/components/fase-competicao";
 import { Stepper } from "@/components/stepper/stepper";
@@ -7,7 +8,7 @@ import { handleReset, handleSubmit } from "@/handlers/form-handlers";
 import { Autocomplete, AutocompleteItem, BreadcrumbItem, Breadcrumbs, Button, DateRangePicker, Divider, Form, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Radio, RadioGroup, RadioProps, Textarea, useDisclosure } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface IFase {
@@ -45,28 +46,45 @@ const CustomRadio = (props: RadioProps) => {
 };
 
 export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCompeticaoDetalhesStepPageProps) {
+    const [esportes, setEsportes] = useState<any[]>([]);
+
+    useEffect(() => {
+        async function fetchEsportes() {
+            try {
+                const res = await fetch("/api/esportes");
+                const data = await res.json();
+                setEsportes(data);
+            } catch (e) {
+                console.error(e);
+            } finally {
+            }
+        }
+
+        fetchEsportes();
+    });
+
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const [selectedFase, setSelectedFase] = useState<IFase | null | undefined>(null);
 
     const competicao_fases: IFase[] = [
-        { 
+        {
             id: 1,
             nome: "Fase de grupos",
-            ordem: 0,            
+            ordem: 0,
         },
 
-        { 
+        {
             id: 2,
             nome: "Eliminatória simples",
-            ordem: 0,            
+            ordem: 0,
         },
-        
-        { 
+
+        {
             id: 3,
             nome: "Eliminatória dupla",
-            ordem: 0,            
-        },        
+            ordem: 0,
+        },
     ];
 
     function setCard(id: number) {
@@ -75,28 +93,10 @@ export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCom
         setSelectedFase(fase);
     }
 
-    const [dtFase_rows, setDtFase_rows] = useState<IFase[]>([]);
-
-    const esportes = [
-        { label: "Vôlei de praia", key: "voleipraia01" },
-        { label: "Futebol", key: "futebol01" },
-    ];
-
-    const dtFases_columns: IColumn<IFase>[] = [
-        {
-            name: "ordem",
-            key: "ordem",
-            label: "ORDEM",
-            align: "end"
-        },
-
-        {
-            name: "nome",
-            key: "nome",
-            label: "FASE",
-            align: "start"
-        }
-    ];
+    // const esportes = [
+    //     { label: "Vôlei de praia", key: "voleipraia01" },
+    //     { label: "Futebol", key: "futebol01" },
+    // ];
 
     return (
         <div className="mx-5 my-5">
@@ -114,7 +114,7 @@ export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCom
                         label="Esporte"
                         defaultItems={esportes}
                     >
-                        {(esporte) => <AutocompleteItem key={esporte.key}>{esporte.label}</AutocompleteItem>}
+                        {(esporte) => <AutocompleteItem key={esporte.id}>{esporte.nome}</AutocompleteItem>}
                     </Autocomplete>
 
                     <Textarea className="col-span-6" label="Descrição" />
@@ -197,17 +197,17 @@ export default function CreateCompeticaoDetalhesStepPage({ formRef }: ICreateCom
                             <ModalHeader>{selectedFase?.nome}</ModalHeader>
                             <ModalBody>
                                 <Form className="grid grid-cols-12 gap-y-2 gap-x-2 w-full">
-                                    <Input className="col-span-12" label="Pontos por vitória"/>
-                                    <Input className="col-span-12" label="Pontos por empate"/>
-                                    <Input className="col-span-12" label="Pontos por derrota"/>
-                                    <Input className="col-span-12" label="Pontos para classificar"/>
-                                    <Input className="col-span-12" label="Pontos para eliminar"/>
-                                    <Input className="col-span-12" label="Mínimo de pontos requeridos"/>
-                                    <Input className="col-span-12" label="Vitórias para classificar"/>
-                                    <Input className="col-span-12" label="Vitórias para eliminar"/>
-                                    <Input className="col-span-12" label="Máximo de participantes"/>
-                                    <Input className="col-span-12" label="Qtd. Mínima de classificados"/>
-                                    <Input className="col-span-12" label="Qtd. Mínima de eliminados"/>
+                                    <Input className="col-span-12" label="Pontos por vitória" />
+                                    <Input className="col-span-12" label="Pontos por empate" />
+                                    <Input className="col-span-12" label="Pontos por derrota" />
+                                    <Input className="col-span-12" label="Pontos para classificar" />
+                                    <Input className="col-span-12" label="Pontos para eliminar" />
+                                    <Input className="col-span-12" label="Mínimo de pontos requeridos" />
+                                    <Input className="col-span-12" label="Vitórias para classificar" />
+                                    <Input className="col-span-12" label="Vitórias para eliminar" />
+                                    <Input className="col-span-12" label="Máximo de participantes" />
+                                    <Input className="col-span-12" label="Qtd. Mínima de classificados" />
+                                    <Input className="col-span-12" label="Qtd. Mínima de eliminados" />
                                 </Form>
                             </ModalBody>
                             <ModalFooter>

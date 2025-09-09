@@ -53,7 +53,7 @@ model Esporte {
   id   Int    @id @default(autoincrement()) @map("id")
   nome String @map("nome") @db.VarChar(255)
 
-  TipoPeriodos TipoPeriodo[]
+  TiposPeriodo TipoPeriodo[]
   Competicoes  Competicao[]
 
   @@map("tb_esportes")
