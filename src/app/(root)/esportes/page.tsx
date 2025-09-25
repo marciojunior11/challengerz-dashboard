@@ -1,4 +1,4 @@
-import { GetEsportes } from "@/app/(server-actions)/esportes/actions";
+import { GetEsportes } from "@/app/server-actions/esporte/actions";
 import Lista from "./components/lista";
 import { IEsporte } from "@/models/esporte/IEsporte";
 

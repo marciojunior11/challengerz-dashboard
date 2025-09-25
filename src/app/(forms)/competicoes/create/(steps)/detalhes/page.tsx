@@ -1,6 +1,6 @@
 "use client"
 
-import { GetEsportes } from "@/app/(server-actions)/esportes/actions";
+import { GetEsportes } from "@/app/server-actions/esporte/actions";
 import DataTable, { IColumn } from "@/components/data-table";
 import FaseCompeticao from "@/components/fase-competicao";
 import { Stepper } from "@/components/stepper/stepper";

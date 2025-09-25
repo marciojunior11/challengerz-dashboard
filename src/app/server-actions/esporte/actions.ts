@@ -14,7 +14,7 @@ export async function GetEsportes() {
 
         return result;
     } catch (e) {
-        console.error("ERRO SERVER ACTION. Caminho pasta: '(server-actions)/esportes/actions'. Ação: 'GetEsportes'");
+        console.error("ERRO SERVER ACTION. Caminho pasta: 'server-actions/esporte/actions'. Ação: 'GetEsportes'");
         throw e;
     }
 }
@@ -32,7 +32,7 @@ export async function CreateEsporte(data: IEsporte) {
         return result;
     }
     catch (e) {
-        console.error("ERRO SERVER ACTION. Caminho pasta: '(server-actions)/esportes/actions'. Ação: 'GetEsportes'");
+        console.error("ERRO SERVER ACTION. Caminho pasta: 'server-actions/esporte/actions'. Ação: 'GetEsportes'");
         throw e;
     }
 }

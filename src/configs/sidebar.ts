@@ -20,7 +20,7 @@ export const sidebarConfig = {
             key: "sbi_2",
             icon: "ph:timer-duotone",
             label: "Períodos de esporte",
-            href: "/periodos-esporte",
+            href: "/tipos-periodo",
         },
 
         {

@@ -1,6 +1,6 @@
 "use client"
 
-import { CreateEsporte } from "@/app/(server-actions)/esportes/actions";
+import { CreateEsporte } from "@/app/server-actions/esporte/actions";
 import { handleInputChange } from "@/handlers/change-event-handlers";
 import { handleReset, handleSubmit } from "@/handlers/form-handlers";
 import { IEsporte } from "@/models/esporte/IEsporte";

@@ -1,13 +1,13 @@
 "use client"
 
 import DataTable, { IColumn } from "@/components/data-table";
-import { IEsporte } from "@/models/esporte/IEsporte"
+import { ITipoPeriodo } from "@/models/tipo-periodo/ITipoPeriodo"
 import { Button, Divider, Input } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useRouter } from "next/navigation";
 
 interface ILista {
-    data: IEsporte[]
+    data: ITipoPeriodo[]
 }
 
 export default function Lista({ data }: ILista) {
@@ -25,6 +25,14 @@ export default function Lista({ data }: ILista) {
             name: "nome",
             align: "start"
         },
+
+        {
+            key: "esporte.nome",
+            name: "esporte.nome",
+            label: "ESPORTE",
+            align: "center"
+        },
+
         {
             key: "actions",
             name: "actions",
@@ -37,7 +45,7 @@ export default function Lista({ data }: ILista) {
                             isIconOnly
                             color="primary"
                             variant="flat"
-                            onPress={() => router.push(`/esportes/edit/${item.id}`)}
+                            onPress={() => router.push(`/tipos-periodo/edit/${item.id}`)}
                         >
                             <Icon className="m-1" fontSize={40} icon="lets-icons:edit-duotone" />
                         </Button>
@@ -46,7 +54,7 @@ export default function Lista({ data }: ILista) {
                             isIconOnly
                             color="danger"
                             variant="flat"
-                            onPress={() => router.push(`/esportes/delete/${item.id}`)}
+                            onPress={() => router.push(`/tipos-periodo/delete/${item.id}`)}
                         >
                             <Icon className="m-1" fontSize={40} icon="lets-icons:trash-duotone" />
                         </Button>
@@ -61,7 +69,7 @@ export default function Lista({ data }: ILista) {
             <div className="flex justify-between items-center p-5 gap-4">
                 {/* Lado esquerdo - Busca */}
                 <div className="flex items-center gap-4 w-1/3">
-                    <Input label="Buscar esporte" />
+                    <Input label="Buscar período de esporte" />
                 </div>
 
                 {/* Lado direito - Perfil */}
@@ -73,7 +81,7 @@ export default function Lista({ data }: ILista) {
                         variant="flat"
                         color="primary"
                         startContent={<Icon fontSize={40} icon="lets-icons:add-square-duotone" />}
-                        onPress={() => router.push("/esportes/create")}
+                        onPress={() => router.push("/tipos-periodo/create")}
                     >
                         Cadastrar
                     </Button>
@@ -87,5 +95,5 @@ export default function Lista({ data }: ILista) {
             </div>
 
         </section>
-    )
+    );
 }

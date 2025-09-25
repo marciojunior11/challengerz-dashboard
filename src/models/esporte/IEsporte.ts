@@ -1,4 +1,4 @@
 export interface IEsporte {
-    id: number,
+    id?: number,
     nome: string
 }
